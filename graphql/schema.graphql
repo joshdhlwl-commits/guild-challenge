@@ -1,0 +1,110 @@
+# You shouldn't need to modify this file
+
+type Query {
+  # example
+  students: [Student!]!
+  # example
+  student(id: String!): Student
+  # return the most popular course of all time by enrollment
+  getMostPopularCourse(input: GetMostPopularCourseInput): Course
+  # given a courseId, return all grades ever achieved in this course
+  getGradesPerCourse(input: CourseInput): GradesPerCourse
+  # given a student's id and a date, return the student's status as of that date (GPA, current and previous enrollments)
+  getStudentStatus(input: GetStudentStatusInput): StudentStatus
+  # given a student, calculate all potential outcomes of a student's GPA after their current courses end
+  getProjectedGPA(input: StudentInput): AllPossibleGPAOutcomes
+  # return statistics detailing the average GPA across all courses and each course's raw difference and standard deviation from the mean
+  getCourseStatistics: CourseStatistics
+  # given a student, what courses and what grades in those courses do they need to take to graduate?
+  getPossibleGraduationOutcomes(
+    input: StudentInput
+  ): AllPossibleGraduationOutcomes
+  # find the cheapest major and the most expensive major
+  getMajorStatistics: MajorStatistics
+}
+
+type Student {
+  id: String!
+  name: String!
+}
+
+input StudentInput {
+  id: String!
+}
+
+input GetMostPopularCourseInput {
+  startDate: String!
+  endDate: String!
+}
+
+input GetStudentStatusInput {
+  studentId: String!
+  asOfDate: String!
+}
+
+input CourseInput {
+  courseId: String!
+}
+
+type Course {
+  id: String!
+  name: String!
+  majorId: String!
+  creditHours: Int!
+  tuitionCost: Float!
+  deviationFromMeanGPA: Float
+  rawDifferenceFromMeanGPA: Float
+}
+
+type GradesPerCourse {
+  courseId: String!
+  grades: [CourseGrade!]!
+}
+
+type CourseGrade {
+  studentId: String!
+  letterGrade: String!
+}
+
+type StudentStatus {
+  studentInfo: Student!
+  gpa: Float!
+  currentEnrollments: [Course!]!
+  previousEnrollments: [Course!]!
+  creditsCompleted: Int!
+  declaredMajor: String
+}
+
+type AllPossibleGPAOutcomes {
+  gpaOutcomes: [CourseCombinationOutcome!]!
+}
+
+type CourseOutcome {
+  id: String!
+  grade: String!
+  gpaContribution: Float!
+}
+
+type CourseCombinationOutcome {
+  overallGPA: Float!
+  courseOutcomes: [CourseOutcome!]!
+}
+
+type AllPossibleGraduationOutcomes {
+  courseOutcomes: [CourseCombinationOutcome!]!
+}
+
+type CourseStatistics {
+  meanGPA: Float!
+  courseStatistics: [Course!]!
+}
+
+type Major {
+  id: String!
+  name: String!
+}
+
+type MajorStatistics {
+  cheapestMajor: Major!
+  mostExpensiveMajor: Major!
+}

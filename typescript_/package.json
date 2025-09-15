@@ -1,0 +1,54 @@
+{
+  "name": "backend-take-home",
+  "version": "1.0.0",
+  "description": "Guild's Backend Engineering Take Home Project",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/GuildChallenges/backend-take-home.git"
+  },
+  "author": "Ryan Dean <ryan.dean@guileducation.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0",
+    "pg": "^8.7.3",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@guildeducationinc/prettier-config": "^2.0.1",
+    "@types/chai": "^4.3.3",
+    "@types/express": "^4.17.13",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.7.6",
+    "@types/pg": "^8.6.5",
+    "@types/sinon-chai": "^3.2.8",
+    "concurrently": "^7.3.0",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "sinon": "^14.0.0",
+    "sinon-chai": "^3.7.0",
+    "ts-node": "^10.9.1"
+  },
+  "prettier": "@guildeducationinc/prettier-config",
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\"",
+    "lint": "yarn prettier --write \"{src,test}/**/*.{ts,tsx,js,jsx}\"",
+    "start": "node dist/src/index.js",
+    "unit.tests": "mocha -r ts-node/register 'test/unit/*.spec.ts'"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/GuildChallenges/backend-take-home/issues"
+  },
+  "homepage": "https://github.com/GuildChallenges/backend-take-home#readme"
+}
